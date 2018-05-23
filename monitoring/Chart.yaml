@@ -1,0 +1,11 @@
+apiVersion: v1
+name: monitoring
+description: set of monitoring chart that runs on kubernetes
+version: 1.0.0
+keywords:
+  - monitoring
+  - kubernetes
+home: https://github.com/stakater/chart-monitoring
+maintainers:
+- name: Stakater
+  email: stakater@aurorasolutions.io
