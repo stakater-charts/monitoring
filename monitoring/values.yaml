@@ -84,24 +84,6 @@ prometheus:
       requests:
         storage: 40Gi
 
-# Move to service monitors?
-  smPrometheus:
-    interval: 30s
-    namespaceSelector:
-    - monitoring
-  smNodeExporter:
-    interval: 30s
-    namespaceSelector:
-    - monitoring
-  smNodeKubelet:
-    namespaceSelector:
-    - kube-system
-  smNodeKubeStateMetrics:
-    namespaceSelector:
-    - monitoring
-  smNodeKubeDNS:
-    namespaceSelector:
-    - kube-system
   configmap:
     data: |+
       alertmanager.rules: |+
@@ -657,3 +639,41 @@ prometheus:
               description: Reloading Prometheus' configuration has failed for {{ $labels.namespace
                 }}/{{ $labels.pod}}.
               summary: Prometheus configuration reload has failed
+
+serviceMonitor:
+  prometheus:
+    interval: 30s
+    namespaceSelector:
+    - monitoring
+  nodeExporter:
+    interval: 30s
+    namespaceSelector:
+    - monitoring
+  kubelet:
+    interval: 30s
+    namespaceSelector:
+    - kube-system
+  kubeStateMetrics:
+    interval: 30s
+    namespaceSelector:
+    - monitoring
+  kubeDNS:
+    interval: 30s
+    namespaceSelector:
+    - kube-system
+  alertmanager:
+    interval: 30s
+    namespaceSelector:
+    - monitoring
+  kubeApiserver:
+    interval: 30s
+    namespaceSelector:
+    - default
+  kubeControllerManager:
+    interval: 30s
+    namespaceSelector:
+    - kube-system
+  kubeScheduler:
+    interval: 30s
+    namespaceSelector:
+    - kube-system
