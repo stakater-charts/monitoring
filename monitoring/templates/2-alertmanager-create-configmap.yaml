@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ template "name" . }}-create-am-job
 data:
-  servicemonitor-operator.yaml: |-
+  alertmanager.yaml: |-
       apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
       kind: Alertmanager
       metadata:
