@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "name" . }}-create-am-job
+data:
+  alertmanager.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: Alertmanager
+      metadata:
+        name: main
+        labels:
+{{ include "labels.stakater-am" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        replicas: {{ .Values.alertmanager.replicas }}
+        version: {{ .Values.alertmanager.image.tag }}
+        externalUrl: {{ .Values.alertmanager.externalUrl }}
+        nodeSelector:
+          failure-domain.beta.kubernetes.io/zone: {{ .Values.global.nodeSelectorZone }}

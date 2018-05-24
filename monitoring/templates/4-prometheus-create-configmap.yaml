@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "name" . }}-create-prom-job
+data:
+  prometheus.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: Prometheus
+      metadata:
+        annotations:
+          configmap.fabric8.io/update-on-change: {{ template "name" . }}-prometheus-k8s-rules
+        name: k8s
+        labels:
+          prometheus: {{ .Values.prometheus.prometheusLabel }}
+      {{ include "labels.stakater-prom" . | indent 10 }}
+      {{ include "labels.chart" . | indent 10 }}
+      spec:
+        replicas: {{ .Values.prometheus.replicas }}
+        version: {{ .Values.prometheus.image.tag }}
+        externalUrl: {{ .Values.prometheus.externalUrl }}
+        serviceAccountName: {{ template "name" . }}-prometheus-k8s
+        serviceMonitorSelector:
+          matchExpressions:
+          {{- range .Values.prometheus.serviceMonitorExpressions }}
+          - {{ . }}
+          {{- end }}
+        ruleSelector:
+          matchLabels:
+            prometheus: {{ .Values.prometheus.prometheusLabel }}
+      {{ include "labels.selector-prom" . | indent 12 }}
+        nodeSelector:
+          failure-domain.beta.kubernetes.io/zone: {{ .Values.global.nodeSelectorZone }}
+        {{- with .Values.prometheus.resources }}
+        resources:
+          {{- with .requests }}
+          requests:
+            {{- with .memory }}
+            memory: {{ . }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        retention: {{ .Values.prometheus.retention }}
+        storage:
+          class: {{ .Values.prometheus.storage.class }}
+          selector:
+          resources:
+          volumeClaimTemplate:
+            metadata:
+              annotations:
+                annotation1: {{ template "name" . }}-prometheus
+                {{- with .Values.prometheus.storage.annotations }}
+                {{- range $key, $value := . }}
+                {{ $key }}: {{ $value }}
+                {{- end }}
+                {{- end }}
+            spec:
+              storageClassName: {{ .Values.prometheus.storage.class }}
+              {{- with .Values.prometheus.storage.resources }}
+              resources:
+                {{- with .requests }}
+                requests:
+                  {{- with .storage }}
+                  storage: {{ . }}
+                  {{- end }}
+                {{- end }}
+              {{- end }}
+        alerting:
+          alertmanagers:
+          - namespace: {{ .Release.Namespace }}
+            name: alertmanager-main
+            port: web

@@ -1,0 +1,229 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "name" . }}-create-sm-job
+data:
+  servicemonitor-prometheus-operator.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: prometheus-operator
+        labels:
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+          k8s-app: prometheus-operator
+      spec:
+        endpoints:
+        - port: http
+        selector:
+          matchLabels:
+            k8s-app: prometheus-operator
+  servicemonitor-prometheus.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: prometheus
+        labels:
+          k8s-app: prometheus
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        selector:
+          matchLabels:
+            prometheus: {{ .Values.prometheus.prometheusLabel }}
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.prometheus.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+        endpoints:
+        - port: web
+          interval: {{ .Values.serviceMonitor.prometheus.interval }}
+  servicemonitor-node-exporter.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: node-exporter
+        labels:
+          k8s-app: node-exporter
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        jobLabel: k8s-app
+        selector:
+          matchLabels:
+            k8s-app: node-exporter
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.nodeExporter.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+        endpoints:
+        - port: http-metrics
+          interval: {{ .Values.serviceMonitor.nodeExporter.interval }}
+
+  servicemonitor-kubelet.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: kubelet
+        labels:
+          k8s-app: kubelet
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        jobLabel: k8s-app
+        endpoints:
+        - port: cadvisor
+          interval: {{ .Values.serviceMonitor.kubelet.interval }}
+          honorLabels: true
+        selector:
+          matchLabels:
+            k8s-app: kubelet
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.kubelet.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+  servicemonitor-kube-state-metrics.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: kube-state-metrics
+        labels:
+          k8s-app: kube-state-metrics
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        jobLabel: k8s-app
+        selector:
+          matchLabels:
+            k8s-app: kube-state-metrics
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.kubeStateMetrics.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+        endpoints:
+        - port: http-metrics
+          interval: {{ .Values.serviceMonitor.kubeStateMetrics.interval }}
+          honorLabels: true
+
+  servicemonitor-kube-dns.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: kube-dns
+        labels:
+          k8s-app: kube-dns
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        jobLabel: k8s-app
+        endpoints:
+        - port: http-metrics-skydns
+          interval: {{ .Values.serviceMonitor.kubeDNS.interval }}
+        - port: http-metrics-dnsmasq
+          interval: {{ .Values.serviceMonitor.kubeDNS.interval }}
+        selector:
+          matchLabels:
+            k8s-app: kube-dns
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.kubeDNS.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+  alertmanager.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: alertmanager
+        labels:
+          k8s-app: alertmanager
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+      spec:
+        selector:
+          matchLabels:
+            alertmanager: main
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.alertmanager.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+        endpoints:
+        - port: web
+          interval: {{ .Values.serviceMonitor.alertmanager.interval }}
+  servicemonitor-kube-apiserver.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: kube-apiserver
+        labels:
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+          k8s-app: apiserver
+      spec:
+        jobLabel: component
+        selector:
+          matchLabels:
+            component: apiserver
+            provider: kubernetes
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.kubeApiserver.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+        endpoints:
+        - port: https
+          interval: {{ .Values.serviceMonitor.kubeApiserver.interval }}
+          scheme: https
+          tlsConfig:
+            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            serverName: kubernetes
+          bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+  servicemonitor-kube-controller-manager: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: kube-controller-manager
+        labels:
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
+          k8s-app: kube-controller-manager
+      spec:
+        jobLabel: k8s-app
+        endpoints:
+        - port: http-metrics
+          interval: {{ .Values.serviceMonitor.kubeControllerManager.interval }}
+        selector:
+          matchLabels:
+            k8s-app: kube-controller-manager
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.kubeControllerManager.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
+
+  servicemonitor-kube-scheduler.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: kube-scheduler
+        labels:
+          app: kube-scheduler
+          k8s-app: kube-scheduler
+      spec:
+        jobLabel: k8s-app
+        endpoints:
+        - port: http-metrics
+          interval: {{ .Values.serviceMonitor.kubeScheduler.interval }}
+        selector:
+          matchLabels:
+            k8s-app: kube-scheduler
+        namespaceSelector:
+          matchNames:
+          {{- range .Values.serviceMonitor.kubeScheduler.namespaceSelector }}
+          - {{ . }}
+          {{- end }}
