@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ template "name" . }}-prometheus-k8s-rules
-  namespace: {{ .Values.prometheus.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     role: prometheus-rulefiles
     prometheus: {{ .Values.prometheus.prometheusLabel }}
