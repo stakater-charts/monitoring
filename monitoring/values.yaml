@@ -85,7 +85,7 @@ prometheus:
         storage: 40Gi
 
   configmap:
-    data: |+
+    data:
       alertmanager.rules: |+
         groups:
         - name: alertmanager.rules
