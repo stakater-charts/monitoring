@@ -58,7 +58,6 @@ prometheus:
 
   service:
     expose: "true"
-    prometheusLabel: k8s
     forceSslRedirect: "true"
     ingressClass: internal-ingress
     
