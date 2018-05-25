@@ -19,4 +19,3 @@ spec:
     targetPort: web
   selector:
     prometheus: {{ .Values.prometheus.prometheusLabel }}
-{{ include "labels.selector-prom" . | indent 4 }}
