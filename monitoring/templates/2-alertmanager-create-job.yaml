@@ -25,7 +25,7 @@ spec:
             - ./kubectl
             - apply 
             - -f 
-            - /tmp/alertmanager/*.yaml
+            - /tmp/alertmanager/
           volumeMounts:
             - mountPath: "/tmp/alertmanager"
               name: tmp-configmap-alertmanager

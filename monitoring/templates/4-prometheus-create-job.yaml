@@ -25,7 +25,7 @@ spec:
             - ./kubectl
             - apply 
             - -f 
-            - /tmp/prometheus/*.yaml
+            - /tmp/prometheus/
           volumeMounts:
             - mountPath: "/tmp/prometheus"
               name: tmp-configmap-prometheus
