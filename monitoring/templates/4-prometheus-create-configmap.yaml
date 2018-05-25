@@ -26,6 +26,7 @@ data:
           {{- end }}
         ruleSelector:
           matchLabels:
+            role: prometheus-rulefiles
             prometheus: {{ .Values.prometheus.prometheusLabel }}
         nodeSelector:
           failure-domain.beta.kubernetes.io/zone: {{ .Values.global.nodeSelectorZone }}
@@ -46,7 +47,7 @@ data:
           volumeClaimTemplate:
             metadata:
               annotations:
-                annotation1: {{ template "name" . }}-prometheus
+                annotation1: prometheus
                 {{- with .Values.prometheus.storage.annotations }}
                 {{- range $key, $value := . }}
                 {{ $key }}: {{ $value }}
