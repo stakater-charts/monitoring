@@ -24,6 +24,9 @@ With this chart, you would also need to apply the following charts for monitorin
 * https://github.com/stakater/chart-kube-state-metrics
 * https://github.com/stakater/chart-node-exporter
 
+## Note:
+Deleting the chart won't delete unsuccessfull jobs, CRDs, and custom resources created from CRDs.
+
 ## Reference links:
 * https://github.com/kubernetes/helm/blob/master/docs/charts_hooks.md
 * https://github.com/coreos/prometheus-operator/tree/master/helm/prometheus-operator/templates
