@@ -12,8 +12,8 @@ data:
         name: k8s
         labels:
           prometheus: {{ .Values.prometheus.prometheusLabel }}
-      {{ include "labels.stakater-prom" . | indent 10 }}
-      {{ include "labels.chart" . | indent 10 }}
+{{ include "labels.stakater-prom" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
       spec:
         replicas: {{ .Values.prometheus.replicas }}
         version: {{ .Values.prometheus.image.tag }}
@@ -27,7 +27,7 @@ data:
         ruleSelector:
           matchLabels:
             prometheus: {{ .Values.prometheus.prometheusLabel }}
-      {{ include "labels.selector-prom" . | indent 12 }}
+{{ include "labels.selector-prom" . | indent 12 }}
         nodeSelector:
           failure-domain.beta.kubernetes.io/zone: {{ .Values.global.nodeSelectorZone }}
         {{- with .Values.prometheus.resources }}
