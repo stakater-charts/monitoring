@@ -4,7 +4,7 @@ metadata:
   labels:
 {{ include "labels.stakater-po" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-operator
+  name: {{ template "name" . }}-prometheus-operator
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -12,7 +12,7 @@ metadata:
   labels:
 {{ include "labels.stakater-po" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-operator
+  name: {{ template "name" . }}-prometheus-operator
 rules:
 - apiGroups:
   - extensions
@@ -71,12 +71,12 @@ metadata:
   labels:
 {{ include "labels.stakater" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-operator
+  name: {{ template "name" . }}-prometheus-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ template "name" . }}-operator
+  name: {{ template "name" . }}-prometheus-operator
 subjects:
 - kind: ServiceAccount
-  name: {{ template "name" . }}-operator
+  name: {{ template "name" . }}-prometheus-operator
   namespace: {{ .Release.Namespace }}
