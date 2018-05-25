@@ -23,4 +23,4 @@ spec:
     targetPort: http
     protocol: TCP
   selector:
-    k8s-app: {{ template "name" . }}-prometheus-operator
+    k8s-app: prometheus-operator

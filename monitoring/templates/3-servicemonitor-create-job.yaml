@@ -25,7 +25,7 @@ spec:
             - ./kubectl
             - apply 
             - -f 
-            - /tmp/servicemonitor/*.yaml
+            - /tmp/servicemonitor/
           volumeMounts:
             - mountPath: "/tmp/servicemonitor"
               name: tmp-configmap-servicemonitor

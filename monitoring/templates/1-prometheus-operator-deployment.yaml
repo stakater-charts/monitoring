@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        k8s-app: {{ template "name" . }}-prometheus-operator
+        k8s-app: prometheus-operator
     spec:
       containers:
       - args:
