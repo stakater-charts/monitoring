@@ -5,6 +5,7 @@ metadata:
 {{ include "labels.stakater-am" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
     expose: "{{ .Values.alertmanager.service.expose }}"
+    alertmanager: main
   name: {{ template "name" . }}-alertmanager
   annotations:
     fabric8.io/ingress.annotations: |-
