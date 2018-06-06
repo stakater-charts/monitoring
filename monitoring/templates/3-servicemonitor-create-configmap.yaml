@@ -212,7 +212,8 @@ data:
       metadata:
         name: kube-scheduler
         labels:
-          app: kube-scheduler
+{{ include "labels.selector-sm" . | indent 10 }}
+{{ include "labels.chart" . | indent 10 }}
           k8s-app: kube-scheduler
       spec:
         jobLabel: k8s-app

@@ -9,6 +9,7 @@ data:
       metadata:
         name: main
         labels:
+          alertmanager: main
 {{ include "labels.stakater-am" . | indent 10 }}
 {{ include "labels.chart" . | indent 10 }}
       spec:

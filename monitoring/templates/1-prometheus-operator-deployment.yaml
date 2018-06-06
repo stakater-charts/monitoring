@@ -2,6 +2,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   labels:
+    k8s-app: prometheus-operator
 {{ include "labels.stakater-po" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
   name: {{ template "name" . }}-prometheus-operator
