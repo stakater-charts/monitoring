@@ -6,7 +6,7 @@ metadata:
 {{ include "labels.chart" . | indent 4 }}
     expose: "{{ .Values.alertmanager.service.expose }}"
     alertmanager: main
-  name: {{ template "name" . }}-alertmanager
+  name: {{ template "name" . }}-alertmanager-main
   annotations:
     fabric8.io/ingress.annotations: |-
       ingress.kubernetes.io/force-ssl-redirect: "{{ .Values.alertmanager.service.forceSslRedirect }}"

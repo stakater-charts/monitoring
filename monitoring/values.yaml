@@ -7,8 +7,8 @@ global:
     image: quay.io/coreos/hyperkube
     tag: v1.8.7_coreos.0
     pullPolicy: IfNotPresent
-  nodeSelectorZone: eu-west-1a
-    
+  nodeSelectorZone: us-west-2a
+
 prometheusOperator:
   apiVersion: "monitoring.coreos.com/v1"
   labels:
@@ -48,7 +48,7 @@ alertmanager:
     expose: "true"
   secrets:
     alertManagerYaml:
-      Z2xvYmFsOgoKICByZXNvbHZlX3RpbWVvdXQ6IDVtCgogIHNsYWNrX2FwaV91cmw6ICcnCgp0ZW1wbGF0ZXM6CgotICcvZXRjL2FsZXJ0bWFuYWdlci90ZW1wbGF0ZS8qLnRtcGwnCgpyb3V0ZToKCiAgZ3JvdXBfYnk6IFsnYWxlcnRuYW1lJywgJ2NsdXN0ZXInLCAnc2VydmljZSddCgogIGdyb3VwX3dhaXQ6IDMwcwoKICBncm91cF9pbnRlcnZhbDogNW0KCiAgcmVwZWF0X2ludGVydmFsOiAxaAoKICByZWNlaXZlcjogZGVmYXVsdC1yZWNlaXZlcgoKICByb3V0ZXM6CgogIC0gbWF0Y2g6CgogICAgICBhbGVydG5hbWU6IERlYWRNYW5zU3dpdGNoCgogICAgcmVjZWl2ZXI6ICdudWxsJwoKaW5oaWJpdF9ydWxlczoKCi0gc291cmNlX21hdGNoOgoKICAgIHNldmVyaXR5OiAnY3JpdGljYWwnCgogIHRhcmdldF9tYXRjaDoKCiAgICBzZXZlcml0eTogJ3dhcm5pbmcnCgogICMgQXBwbHkgaW5oaWJpdGlvbiBpZiB0aGUgYWxlcnRuYW1lIGlzIHRoZSBzYW1lLgoKICBlcXVhbDogWydhbGVydG5hbWUnLCAnY2x1c3RlcicsICdzZXJ2aWNlJ10KCnJlY2VpdmVyczoKCi0gbmFtZTogJ2RlZmF1bHQtcmVjZWl2ZXInCgogIHNsYWNrX2NvbmZpZ3M6CgogIC0gY2hhbm5lbDogJyNkZXYtbm90aWZpY2F0aW9ucycKCiAgICB0aXRsZTogJ1t7eyAuU3RhdHVzIHwgdG9VcHBlciB9fXt7IGlmIGVxIC5TdGF0dXMgImZpcmluZyIgfX06e3sgLkFsZXJ0cy5GaXJpbmcgfCBsZW4gfX17eyBlbmQgfX1dIFByb21ldGhldXMgRXZlbnQgTm90aWZpY2F0aW9uJwoKICAgIHRpdGxlX2xpbms6IHwKCiAgICAgIGh0dHBzOi8vYWxlcnRtYW5hZ2VyLW1haW4ubW9uaXRvcmluZy5zdGFja2F0b3IuY29tCgogICAgdGV4dDogPi0KCiAgICAgICAge3sgcmFuZ2UgLkFsZXJ0cyB9fQoKICAgICAgICAgICAqQWxlcnQ6KiB7eyAuQW5ub3RhdGlvbnMuc3VtbWFyeSB9fSAtIGB7eyAuTGFiZWxzLnNldmVyaXR5IH19YAoKICAgICAgICAgICpEZXNjcmlwdGlvbjoqIHt7IC5Bbm5vdGF0aW9ucy5kZXNjcmlwdGlvbiB9fQoKICAgICAgICAgICpHcmFwaDoqIDx7eyAuR2VuZXJhdG9yVVJMIH19fDpjaGFydF93aXRoX3Vwd2FyZHNfdHJlbmQ6PiAqUnVuYm9vazoqIDx7eyAuQW5ub3RhdGlvbnMucnVuYm9vayB9fXw6c3BpcmFsX25vdGVfcGFkOj4KCiAgICAgICAgICAqRGV0YWlsczoqCgogICAgICAgICAge3sgcmFuZ2UgLkxhYmVscy5Tb3J0ZWRQYWlycyB9fSAqe3sgLk5hbWUgfX06KiBge3sgLlZhbHVlIH19YAoKICAgICAgICAgIHt7IGVuZCB9fQoKICAgICAgICB7eyBlbmQgfX0KCiAgICBzZW5kX3Jlc29sdmVkOiB0cnVlCgotIG5hbWU6ICdudWxsJwoK
+      Z2xvYmFsOgoKICByZXNvbHZlX3RpbWVvdXQ6IDVtCgogIHNsYWNrX2FwaV91cmw6ICdodHRwczovL2hvb2tzLnNsYWNrLmNvbS9zZXJ2aWNlcy9UNlA1UFMyVjgvQkFSMDU3U0Y4L1VIdm1ZdUJjVmxNc1RtcGFwV083T3BKMicKCnRlbXBsYXRlczoKCi0gJy9ldGMvYWxlcnRtYW5hZ2VyL3RlbXBsYXRlLyoudG1wbCcKCnJvdXRlOgoKICBncm91cF9ieTogWydhbGVydG5hbWUnLCAnY2x1c3RlcicsICdzZXJ2aWNlJ10KCiAgZ3JvdXBfd2FpdDogMzBzCgogIGdyb3VwX2ludGVydmFsOiA1bQoKICByZXBlYXRfaW50ZXJ2YWw6IDFoCgogIHJlY2VpdmVyOiBkZWZhdWx0LXJlY2VpdmVyCgogIHJvdXRlczoKCiAgLSBtYXRjaDoKCiAgICAgIGFsZXJ0bmFtZTogRGVhZE1hbnNTd2l0Y2gKCiAgICByZWNlaXZlcjogJ251bGwnCgppbmhpYml0X3J1bGVzOgoKLSBzb3VyY2VfbWF0Y2g6CgogICAgc2V2ZXJpdHk6ICdjcml0aWNhbCcKCiAgdGFyZ2V0X21hdGNoOgoKICAgIHNldmVyaXR5OiAnd2FybmluZycKCiAgIyBBcHBseSBpbmhpYml0aW9uIGlmIHRoZSBhbGVydG5hbWUgaXMgdGhlIHNhbWUuCgogIGVxdWFsOiBbJ2FsZXJ0bmFtZScsICdjbHVzdGVyJywgJ3NlcnZpY2UnXQoKcmVjZWl2ZXJzOgoKLSBuYW1lOiAnZGVmYXVsdC1yZWNlaXZlcicKCiAgc2xhY2tfY29uZmlnczoKCiAgLSBjaGFubmVsOiAnI2Rldi1ub3RpZmljYXRpb25zJwoKICAgIHRpdGxlOiAnW3t7IC5TdGF0dXMgfCB0b1VwcGVyIH19e3sgaWYgZXEgLlN0YXR1cyAiZmlyaW5nIiB9fTp7eyAuQWxlcnRzLkZpcmluZyB8IGxlbiB9fXt7IGVuZCB9fV0gUHJvbWV0aGV1cyBFdmVudCBOb3RpZmljYXRpb24nCgogICAgdGl0bGVfbGluazogfAoKICAgICAgaHR0cHM6Ly9hbGVydG1hbmFnZXItbWFpbi5tb25pdG9yaW5nLnN0YWNrYXRvci5jb20KCiAgICB0ZXh0OiA+LQoKICAgICAgICB7eyByYW5nZSAuQWxlcnRzIH19CgogICAgICAgICAgICpBbGVydDoqIHt7IC5Bbm5vdGF0aW9ucy5zdW1tYXJ5IH19IC0gYHt7IC5MYWJlbHMuc2V2ZXJpdHkgfX1gCgogICAgICAgICAgKkRlc2NyaXB0aW9uOioge3sgLkFubm90YXRpb25zLmRlc2NyaXB0aW9uIH19CgogICAgICAgICAgKkdyYXBoOiogPHt7IC5HZW5lcmF0b3JVUkwgfX18OmNoYXJ0X3dpdGhfdXB3YXJkc190cmVuZDo+ICpSdW5ib29rOiogPHt7IC5Bbm5vdGF0aW9ucy5ydW5ib29rIH19fDpzcGlyYWxfbm90ZV9wYWQ6PgoKICAgICAgICAgICpEZXRhaWxzOioKCiAgICAgICAgICB7eyByYW5nZSAuTGFiZWxzLlNvcnRlZFBhaXJzIH19ICp7eyAuTmFtZSB9fToqIGB7eyAuVmFsdWUgfX1gCgogICAgICAgICAge3sgZW5kIH19CgogICAgICAgIHt7IGVuZCB9fQoKICAgIHNlbmRfcmVzb2x2ZWQ6IHRydWUKCi0gbmFtZTogJ251bGwnCgo=
 
 prometheus:
   labels:
@@ -60,11 +60,11 @@ prometheus:
     expose: "true"
     forceSslRedirect: "true"
     ingressClass: internal-ingress
-    
+
   storageclass:
     isDefaultClass: "false"
     annotations:
-  
+
   prometheusLabel: k8s
   externalUrl: http://127.0.0.1:9090
   replicas: 2
@@ -248,13 +248,21 @@ prometheus:
         - name: pods.rules
           rules:
           - alert: PodsDown
-            expr: kube_pod_status_phase{phase!="Running"} == 1 and kube_pod_status_phase{phase!="Pending"} == 1
+            expr: kube_pod_info{created_by_kind!="Job"} == 1 and ON(pod) kube_pod_status_phase{phase!="Pending"} == 1 and ON(pod) kube_pod_status_ready{condition="false"} == 1
             for: 1s
             labels:
               severity: critical
             annotations:
               description: '{{ $labels.pod }} from {{ $labels.namespace }} is red.'
               summary: Pods are down
+          - alert: JobsFailed
+            expr: kube_pod_info{created_by_kind="Job"} == 1 and ON(pod) (kube_pod_status_phase{phase="Failed"} == 1 or kube_pod_status_phase{phase="Unknown"} == 1)
+            for: 1s
+            labels:
+              severity: critical
+            annotations:
+              description: '{{ $labels.pod }} from {{ $labels.namespace }} is red.'
+              summary: Jobs failed
         - name: general.rules
           rules:
           - alert: TargetDown
@@ -314,6 +322,7 @@ prometheus:
             annotations:
               description: CronJob {{$labels.namespaces}}/{{$labels.cronjob}} is taking more than 1h to complete
               summary: CronJob didn't finish after 1h
+
           - alert: JobCompletion
             expr: kube_job_spec_completions - kube_job_status_succeeded  > 0
             for: 1h
@@ -323,6 +332,7 @@ prometheus:
               description: Job completion is taking more than 1h to complete
                 cronjob {{$labels.namespaces}}/{{$labels.job}}
               summary: Job {{$labels.job}} didn't finish to complete after 1h
+
           - alert: JobFailed
             expr: kube_job_status_failed  > 0
             for: 1h
@@ -638,6 +648,7 @@ prometheus:
               description: Reloading Prometheus' configuration has failed for {{ $labels.namespace
                 }}/{{ $labels.pod}}.
               summary: Prometheus configuration reload has failed
+
 
 serviceMonitor:
   prometheus:
