@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "name" . }}-prometheus-operator
+  name: {{ template "monitoring.name" . }}-prometheus-operator
   labels:
     expose: "{{ .Values.prometheusOperator.service.expose }}"
     k8s-app: prometheus-operator
-{{ include "labels.stakater-po" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
+{{ include "monitoring.labels.stakater-po" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
   annotations:
     fabric8.io/ingress.annotations: |-
       ingress.kubernetes.io/force-ssl-redirect: "{{ .Values.prometheusOperator.service.forceSslRedirect }}"

@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "name" . }}-create-prom-job
+  name: {{ template "monitoring.name" . }}-create-prom-job
 data:
   prometheus.yaml: |-
       apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
       kind: Prometheus
       metadata:
         annotations:
-          configmap.fabric8.io/update-on-change: {{ template "name" . }}-prometheus-k8s-rules
+          configmap.fabric8.io/update-on-change: {{ template "monitoring.name" . }}-prometheus-k8s-rules
         name: k8s
         labels:
           prometheus: {{ .Values.prometheus.prometheusLabel }}
-{{ include "labels.stakater-prom" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.stakater-prom" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         replicas: {{ .Values.prometheus.replicas }}
         version: {{ .Values.prometheus.image.tag }}
         externalUrl: {{ .Values.prometheus.externalUrl }}
-        serviceAccountName: {{ template "name" . }}-prometheus-k8s
+        serviceAccountName: {{ template "monitoring.name" . }}-prometheus-k8s
         serviceMonitorSelector:
           matchExpressions:
           {{- range .Values.prometheus.serviceMonitorExpressions }}
