@@ -17,7 +17,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 {{- define "monitoring.labels.selector" -}}
 app: {{ template "monitoring.name" . }}
-{{ template "labels.groupAndProvider" . }}
+{{ template "monitoring.labels.groupAndProvider" . }}
 {{- end -}}
 
 {{- define "monitoring.labels.stakater" -}}
@@ -28,7 +28,7 @@ version: "{{ .Values.prometheusOperator.labels.version }}"
 # Prometheus
 {{- define "monitoring.labels.selector-prom" -}}
 app: {{ template "monitoring.name" . }}-prometheus
-{{ template "labels.groupAndProvider" . }}
+{{ template "monitoring.labels.groupAndProvider" . }}
 {{- end -}}
 
 {{- define "monitoring.labels.stakater-prom" -}}
@@ -39,7 +39,7 @@ version: "{{ .Values.prometheus.labels.version }}"
 # Prometheus Operator
 {{- define "monitoring.labels.selector-po" -}}
 app: {{ template "monitoring.name" . }}-prometheus-operator
-{{ template "labels.groupAndProvider" . }}
+{{ template "monitoring.labels.groupAndProvider" . }}
 {{- end -}}
 
 {{- define "monitoring.labels.stakater-po" -}}
@@ -50,13 +50,13 @@ version: "{{ .Values.prometheusOperator.labels.version }}"
 # ServiceMonitor
 {{- define "monitoring.labels.selector-sm" -}}
 app: {{ template "monitoring.name" . }}-servicemonitor
-{{ template "labels.groupAndProvider" . }}
+{{ template "monitoring.labels.groupAndProvider" . }}
 {{- end -}}
 
 # Alert manager
 {{- define "monitoring.labels.selector-am" -}}
 app: {{ template "monitoring.name" . }}-alertmanager
-{{ template "labels.groupAndProvider" . }}
+{{ template "monitoring.labels.groupAndProvider" . }}
 {{- end -}}
 
 {{- define "monitoring.labels.stakater-am" -}}
@@ -65,7 +65,7 @@ version: "{{ .Values.alertmanager.labels.version }}"
 {{- end -}}
 
 # Common
-{{- define "labels.groupAndProvider" -}}
+{{- define "monitoring.labels.groupAndProvider" -}}
 group: {{ .Values.global.labels.group }}
 provider: {{ .Values.global.labels.provider }}
 {{- end -}}
