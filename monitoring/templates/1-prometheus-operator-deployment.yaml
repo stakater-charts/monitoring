@@ -3,9 +3,9 @@ kind: Deployment
 metadata:
   labels:
     k8s-app: prometheus-operator
-{{ include "labels.stakater-po" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-operator
+{{ include "monitoring.labels.stakater-po" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-operator
 spec:
   replicas: {{ .Values.prometheusOperator.deployment.replicas }}
   template:
@@ -18,7 +18,7 @@ spec:
         - --kubelet-service={{ .Values.prometheusOperator.deployment.kubeletService }}
         - --config-reloader-image={{ .Values.prometheusOperator.deployment.reloaderImage }}
         image: "{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
-        name: {{ template "name" . }}-prometheus-operator
+        name: {{ template "monitoring.name" . }}-prometheus-operator
         ports:
         - containerPort: 8080
           name: http
@@ -43,6 +43,6 @@ spec:
             {{- end }}
           {{- end }}
         {{- end }}
-      serviceAccountName: {{ template "name" . }}-prometheus-operator
+      serviceAccountName: {{ template "monitoring.name" . }}-prometheus-operator
       nodeSelector:
         failure-domain.beta.kubernetes.io/zone: {{ .Values.global.nodeSelectorZone }}

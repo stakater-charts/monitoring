@@ -2,18 +2,18 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}
 rules:
 - apiGroups: [""]
@@ -32,9 +32,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: kube-system
 rules:
 - apiGroups: [""]
@@ -48,9 +48,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: default
 rules:
 - apiGroups: [""]
@@ -64,9 +64,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
 rules:
 - apiGroups: [""]
   resources:
@@ -79,65 +79,65 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
 subjects:
 - kind: ServiceAccount
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
 subjects:
 - kind: ServiceAccount
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
 subjects:
 - kind: ServiceAccount
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-prometheus-k8s
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
 subjects:
 - kind: ServiceAccount
-  name: {{ template "name" . }}-prometheus-k8s
+  name: {{ template "monitoring.name" . }}-prometheus-k8s
   namespace: {{ .Release.Namespace }}

@@ -7,15 +7,15 @@ metadata:
     "helm.sh/hook-weight": "1"
     "helm.sh/hook-delete-policy": hook-succeeded
   labels:
-{{ include "labels.stakater" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-get-crd
+{{ include "monitoring.labels.stakater" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-get-crd
 spec:
   template:
     metadata:
       labels:
-{{ include "labels.selector" . | indent 8 }}
-      name: {{ template "name" . }}-get-crd
+{{ include "monitoring.labels.selector" . | indent 8 }}
+      name: {{ template "monitoring.name" . }}-get-crd
     spec:
       containers:
         - name: hyperkube
@@ -29,4 +29,4 @@ spec:
             - prometheuses.monitoring.coreos.com
             - servicemonitors.monitoring.coreos.com
       restartPolicy: OnFailure
-      serviceAccountName: {{ template "name" . }}-prometheus-operator
+      serviceAccountName: {{ template "monitoring.name" . }}-prometheus-operator

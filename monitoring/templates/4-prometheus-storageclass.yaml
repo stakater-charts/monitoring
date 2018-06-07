@@ -2,8 +2,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   labels:
-{{ include "labels.stakater-prom" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
+{{ include "monitoring.labels.stakater-prom" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
   name: ssd
   annotations:
     storageclass.beta.kubernetes.io/is-default-class: "{{ .Values.prometheus.storageclass.isDefaultClass }}"

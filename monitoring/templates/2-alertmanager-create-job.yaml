@@ -7,15 +7,15 @@ metadata:
     "helm.sh/hook-weight": "2"
     "helm.sh/hook-delete-policy": hook-succeeded
   labels:
-{{ include "labels.stakater-am" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
-  name: {{ template "name" . }}-create-am-job
+{{ include "monitoring.labels.stakater-am" . | indent 4 }}
+{{ include "monitoring.labels.chart" . | indent 4 }}
+  name: {{ template "monitoring.name" . }}-create-am-job
 spec:
   template:
     metadata:
       labels:
-{{ include "labels.selector-am" . | indent 8 }}
-      name: {{ template "name" . }}-create-am-job
+{{ include "monitoring.labels.selector-am" . | indent 8 }}
+      name: {{ template "monitoring.name" . }}-create-am-job
     spec:
       containers:
         - name: hyperkube
@@ -32,6 +32,6 @@ spec:
       volumes:
         - name: tmp-configmap-alertmanager
           configMap:
-            name: {{ template "name" . }}-create-am-job
+            name: {{ template "monitoring.name" . }}-create-am-job
       restartPolicy: OnFailure
-      serviceAccountName: {{ template "name" . }}-prometheus-operator
+      serviceAccountName: {{ template "monitoring.name" . }}-prometheus-operator

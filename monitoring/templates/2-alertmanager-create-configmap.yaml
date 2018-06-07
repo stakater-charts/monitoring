@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "name" . }}-create-am-job
+  name: {{ template "monitoring.name" . }}-create-am-job
 data:
   alertmanager.yaml: |-
       apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
@@ -10,8 +10,8 @@ data:
         name: main
         labels:
           alertmanager: main
-{{ include "labels.stakater-am" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.stakater-am" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         replicas: {{ .Values.alertmanager.replicas }}
         version: {{ .Values.alertmanager.image.tag }}

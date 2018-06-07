@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "name" . }}-create-sm-job
+  name: {{ template "monitoring.name" . }}-create-sm-job
 data:
   servicemonitor-prometheus-operator.yaml: |-
       apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
@@ -9,8 +9,8 @@ data:
       metadata:
         name: prometheus-operator
         labels:
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
           k8s-app: prometheus-operator
       spec:
         endpoints:
@@ -25,8 +25,8 @@ data:
         name: prometheus
         labels:
           k8s-app: prometheus
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         selector:
           matchLabels:
@@ -46,8 +46,8 @@ data:
         name: node-exporter
         labels:
           k8s-app: node-exporter
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         jobLabel: k8s-app
         selector:
@@ -69,8 +69,8 @@ data:
         name: kubelet
         labels:
           k8s-app: kubelet
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         jobLabel: k8s-app
         endpoints:
@@ -92,8 +92,8 @@ data:
         name: kube-state-metrics
         labels:
           k8s-app: kube-state-metrics
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         jobLabel: k8s-app
         selector:
@@ -116,8 +116,8 @@ data:
         name: kube-dns
         labels:
           k8s-app: kube-dns
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         jobLabel: k8s-app
         endpoints:
@@ -140,8 +140,8 @@ data:
         name: alertmanager
         labels:
           k8s-app: alertmanager
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
       spec:
         selector:
           matchLabels:
@@ -160,8 +160,8 @@ data:
       metadata:
         name: kube-apiserver
         labels:
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
           k8s-app: apiserver
       spec:
         jobLabel: component
@@ -189,8 +189,8 @@ data:
       metadata:
         name: kube-controller-manager
         labels:
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
           k8s-app: kube-controller-manager
       spec:
         jobLabel: k8s-app
@@ -212,8 +212,8 @@ data:
       metadata:
         name: kube-scheduler
         labels:
-{{ include "labels.selector-sm" . | indent 10 }}
-{{ include "labels.chart" . | indent 10 }}
+{{ include "monitoring.labels.selector-sm" . | indent 10 }}
+{{ include "monitoring.labels.chart" . | indent 10 }}
           k8s-app: kube-scheduler
       spec:
         jobLabel: k8s-app
