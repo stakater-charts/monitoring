@@ -5,7 +5,7 @@ version: 1.0.8
 keywords:
   - monitoring
   - kubernetes
-home: https://github.com/stakater/chart-monitoring
+home: https://github.com/stakater-charts/monitoring
 maintainers:
 - name: Stakater
   email: hello@stakater.com
